@@ -22,7 +22,7 @@ function Set-LocationImproved
     }
     else
     {
-        Set-Location -Path $args[0]
+        Set-Location @args
     }
 
     $Global:PreviousDirectory = $CurrentDirectory
