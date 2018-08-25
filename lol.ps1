@@ -18,7 +18,7 @@ function Set-LocationImproved
     }
     elseif ($args[0] -is [string] -and ([string]$args[0]).StartsWith('~'))
     {
-        Set-Location -Path ($args[0] -replace "^~\\?/?","$HOME\")
+        Set-Location -Path ($args[0] -replace "^~\\*\/*","$HOME\")
     }
     else
     {
