@@ -1,23 +1,32 @@
 $Global:PreviousDirectory = $null
-function Set-LocationImproved($params)
+function Set-LocationImproved
 {
-    if ($params -eq $null)
+    if ($args.Count -eq 0)
     {
+        Set-Location -Path $HOME
         return
     }
 
     $CurrentDirectory = (Get-Location).Path
 
-    if ($params -eq "-")
+    if ($args[0] -eq "-")
     {
         if ($Global:PreviousDirectory -ne $null)
         {
             Set-Location -Path $PreviousDirectory
         }
     }
+    elseif ($args[0] -eq "~")
+    {
+        Set-Location -Path $HOME
+    }
+    elseif ($args[0] -is [string] -and ([string]$args[0]).StartsWith('~'))
+    {
+        Set-Location -Path ($args[0] -replace "^~\\?/?","$HOME\")
+    }
     else
     {
-        Set-Location $params
+        Set-Location -Path $args[0]
     }
 
     $Global:PreviousDirectory = $CurrentDirectory
