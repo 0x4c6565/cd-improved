@@ -1,4 +1,4 @@
-$Global:PreviousDirectory = $null
+$Env:OLDPWD = $null
 function Set-LocationImproved
 {
     $CurrentDirectory = (Get-Location).Path
@@ -9,9 +9,9 @@ function Set-LocationImproved
     }
     elseif ($args[0] -eq "-")
     {
-        if ($Global:PreviousDirectory -ne $null)
+        if ($Env:OLDPWD -ne $null)
         {
-            Set-Location -Path $PreviousDirectory
+            Set-Location -Path $Env:OLDPWD
         }
     }
     elseif ($args[0] -is [string] -and ([string]$args[0]).StartsWith('~'))
@@ -23,7 +23,7 @@ function Set-LocationImproved
         Set-Location @args
     }
 
-    $Global:PreviousDirectory = $CurrentDirectory
+    $Env:OLDPWD = $CurrentDirectory
 }
 
 if (Test-Path -Path Alias:\cd)
