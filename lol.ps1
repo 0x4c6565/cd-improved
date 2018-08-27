@@ -1,15 +1,13 @@
 $Global:PreviousDirectory = $null
 function Set-LocationImproved
 {
+    $CurrentDirectory = (Get-Location).Path
+
     if ($args.Count -eq 0)
     {
         Set-Location -Path $HOME
-        return
     }
-
-    $CurrentDirectory = (Get-Location).Path
-
-    if ($args[0] -eq "-")
+    elseif ($args[0] -eq "-")
     {
         if ($Global:PreviousDirectory -ne $null)
         {
